@@ -1,37 +1,41 @@
+
+/*
+5 7
+0 1
+0 4
+1 3
+1 4
+1 2
+2 3
+4 3
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
-#define filein freopen("in.txt","r",stdin);
-int node;
-int edge;
-int ara[100][100];
+int main(){
+    freopen( "in.txt", "r", stdin );
 
-int main() {
-    filein;
-    int x , y;
-    cin>>node >>edge;
-    for ( int i = 0 ; i<edge; i++) {
-        cin>>x >>y;
-        ara[x][y] = 1;
-        ara[y][x] = 1;
+    int node, edge;
+    cin >> node >> edge;
+    vector<int> adj[node];
+
+    for (int i = 0; i<edge; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
-    /// adjacancy matrix..
+
     for (int i = 0; i<node; i++) {
-        for ( int j = 0; j<node; j++) {
-            cout<<ara[i][j] << " ";
+        cout << "adjacency list "  << i << ": " ;
+        for (auto j: adj[i] ) {
+            cout << j << " ";
         }
-        cout<<'\n';
+        cout << endl;
     }
-    cout<<endl;
-    /// adjacancy list..
-    for (int i = 0; i<node; i++) {
-            cout<<i<<" -> ";
-        for ( int j = 0; j<node; j++) {
-            if ( ara[i][j] == 1) {
-                cout<<j<<" ";
-            }
-        }
-        cout<<'\n';
-    }
+    cout << endl;
     return 0;
 }
+
+
