@@ -1,55 +1,64 @@
-#include<bits/stdc++.h>
+/*
+input:
+5 6
+5 0
+4 0
+2 3
+3 1
+4 1
+5 2
+
+output:
+
+5 4 2 3 1 0
+
+*/
+#include <bits/stdc++.h>
 using namespace std;
 
-#define white 1
-#define gray 2
-#define black 3
-#define Max 10000
+const int mx = 1e5+7;
 
-int adj[100][100], color[Max],startingtime[Max],finisingtim[Max];
-int node, edge, Time = 1;
-stack<int> s;
+vector<int> adj[mx];
+bool visit[mx];
+int x = 0;
+int start_t[mx], end_t[mx], cnt = 0;
+int color[mx];
+stack<int> st;
 
-void dfsvisit( int x) {
-    startingtime[Time] = Time++;
-    color[x] = gray;
-    for ( int i = 0; i<node; i++) {
-        if ( adj[x][i] == 1 ){
-            if ( color[i] == white) {
-                dfsvisit(i);
-            }
-        }
+void dfs(int u ) {
+
+    if(visit[u]) return;
+    visit[u] = true;
+    color[u] = 1;
+    start_t[u] = ++cnt;
+
+    for (auto v: adj[u]) {
+        dfs(v);
     }
-    color[x] = black;
-    finisingtim[x] = Time++;
-    s.push(x);
+    color[u] = 2;
+    end_t[u] = ++cnt;
+    //cout << u << " ";
+    st.push(u);
 }
 
-void dfs () {
-    for ( int i = 0; i<node; i++) {
-        color[i] = white;
+int main(){
+    freopen( "in.txt", "r", stdin );
+    freopen( "out.txt", "w", stdout );
+    int node, edge;
+    cin >> node >> edge;
+    for (int i = 0; i<edge; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
     }
-    for ( int i = 0; i<node; i++) {
-        if (color[i] == white) {
-            dfsvisit(i);
-        }
-    }
-}
 
-int main() {
-    //freopen("in.txt","r",stdin);
-    cin>>node>>edge;
-    for ( int i  = 0; i<edge; i++) {
-        int x, y;
-        cin>>x>>y;
-        adj[x][y] = 1;
+    for (int i = 0; i<=node; i++) dfs(i);
+    cout << endl;
+
+    while( !st.empty()){
+        cout << st.top() << " ";
+        st.pop();
     }
-    dfs();
-    cout<<"after topological sort the area element"<<endl;
-    while( !s.empty()){
-        cout<< s.top()<< " ";
-        s.pop();
-    }
-    cout<<endl;
+
     return 0;
 }
