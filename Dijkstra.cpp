@@ -1,6 +1,6 @@
 /*
-problem: grit count
-Algorithm: DFS
+problem: shortest path 
+Algorithm: Dijkstra 
 
 input:
 5 6
