@@ -22,7 +22,7 @@ bool visit[mx];
 int start_t[mx], end_t[mx];
 int tc = 0;
 int n, e;
-int cycle = 0;
+int x = 0;
 
 void dfs(int u) {
     if (visit[u]) return;
@@ -61,7 +61,7 @@ int main() {
     for (int i = q.size()-1; i>=0; i--) {
         int u = q[i];
         if (visit[u]) {
-            cout << "graph " << ++cycle << ": ";
+            cout << "graph " << ++x << ": ";
             dfs2(u);
             cout << endl;
         }
