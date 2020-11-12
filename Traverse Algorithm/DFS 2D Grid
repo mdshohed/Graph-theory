@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int dx[] = {0,0,1,-1};
+int dy[] = {1,-1,0,0};
+
+const int mx = 100;
+int ara[mx][mx];
+
+void dfs(int x, int y) {
+    if ( x<0|| x>20) return;
+    if ( y<0|| y>20) return;
+    if ( ara[x][y] ) return;
+
+    ara[x][y] = 1;
+    for (int i = 0; i<4; i++) {
+        dfs( x+dx[i], y+dy[i]);
+    }
+}
+
+int main() {
+
+    dfs(0,0);
+    for (int i = 0; i<20; i++) {
+        for (int j = 0; j<20; j++) {
+            cout << ara[i][j] << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
