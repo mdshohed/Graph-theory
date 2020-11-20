@@ -8,5 +8,5 @@
 
 ### Single-source shortest paths
 * [Dijkstra](https://github.com/mdshohed/Graph-theory/blob/master/Single-source%20shortest%20paths/Dijkstra.cpp)
-* [Bellman ford](https://github.com/mdshohed/Graph-theory/edit/master/Bellman%20ford.cpp)
+* [Bellman ford](https://github.com/mdshohed/Graph-theory/blob/master/Single-source%20shortest%20paths/Bellman%20ford.cpp)
 * [Floyed warshall](https://github.com/mdshohed/Graph-theory/blob/master/Single-source%20shortest%20paths/Floyed%20warshall.cpp)
