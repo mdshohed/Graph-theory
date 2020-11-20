@@ -13,7 +13,6 @@ input:
 5 6
 6 7
 2 6
-
 output:
 distance: 5
 shortest path: 2 1 0 3 4 6
