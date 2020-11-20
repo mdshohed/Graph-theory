@@ -1,7 +1,6 @@
 /*
-problem: shortest path find 
-Algorithm: BFS 
-
+problem: shortest path find
+Algorithm: BFS
 input:
 8 9
 0 1
@@ -17,27 +16,12 @@ input:
 
 output:
 distance: 5
-shortest path: 2 1 0 3 4 6 
+shortest path: 2 1 0 3 4 6
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-#define pb push_back
-#define ff first
-#define ss second
-#define EMPTY_VALUE -1
-#define CLR(x,y) memset( x,y,sizeof(x))
-#define FOR(x,n) for(int i = x; i<n; i++)
-#define read(x) freopen(x, "r", stdin);
-#define write(x) freopen( x, "w", stdout);
-
-typedef long long ll;
-typedef vector<int> v;
-typedef pair<int,int> pii;
-typedef map<string,int> mp;
-
-const int MOD = 1e9+7;
 const int mx = 1e4+9;
 
 vector<int> adj[mx];
@@ -66,7 +50,6 @@ int bfs() {
             }
         }
     }
-    cout << endl;
     cout << "distance: " << dis[dest] << endl;
     path.push_back(dest);
     while( parent[dest]!=-1 ) {
@@ -80,9 +63,8 @@ int bfs() {
 }
 
 int main() {
+    //freopen( "in.txt", "r", stdin );
 
-    read( "in.txt");
-    write( "out.txt");
     cin >> node >> edge;
     for (int i = 0; i<edge; i++ ) {
         int u, v;
@@ -90,9 +72,7 @@ int main() {
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-
     cin >> source >> dest;
-
     bfs();
     return 0;
 }
