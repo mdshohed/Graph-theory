@@ -13,36 +13,17 @@ input:
 output:
 source node: 0
 0 --> 0 = 0
-0 --> 1 = 1
-0 --> 2 = 3
-0 --> 3 = 5
-0 --> 4 = 7
+0 --> 1 = 2
+0 --> 2 = 1
+0 --> 3 = 3
+0 --> 4 = 5
 
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-#define pb push_back
-#define ff first
-#define ss second
-#define EMPTY_VALUE -1
-#define inf  1<<28
-#define CLR(x,y) memset( x,y,sizeof(x))
-#define FOR(x,n) for(int i = x; i<n; i++)
-#define read(x) freopen(x, "r", stdin);
-#define write(x) freopen( x, "w", stdout);
-
-typedef long long ll;
-typedef vector<int> v;
-typedef pair<int,int> pii;
-typedef map<string,int> mp;
-
-const int MOD = 1e9+7;
-const int mx = 1e4+9;
-
-int fx[] = {+0, +0, +1, -1};
-int fy[] = {+1, -1, +0, +0};
+const int mx = 1e5+7;
 
 struct node {
     int u, v, w;
@@ -50,22 +31,25 @@ struct node {
 
 vector<node> adj;
 int dis[mx];
-int n, e,  source , dest;
+int n, e, source, dest;
 
 int Bellman_ford(){
 
-    for (int i = 0; i<n; i++) dis[i] = inf;
+    for (int i = 0; i<n; i++) dis[i] = INT_MAX;
+
     dis[source] = 0;
     for (int i = 0; i<n; i++){
         for (int j = 0; j<adj.size(); j++){
             node tmp = adj[j];
             int u = tmp.u, v = tmp.v, w = tmp.w;
-            if ( dis[v]>dis[u]+w && dis[u]!=inf) {
+            if ( dis[v]>dis[u]+w && dis[u]!=INT_MAX) {
                 dis[v] = dis[u]+w;
             }
         }
     }
+
     bool cycle=false;
+
     for (int j = 0; j<adj.size(); j++){
         node tmp = adj[j];
         int u = tmp.u, v = tmp.v, w = tmp.w;
@@ -84,8 +68,8 @@ int Bellman_ford(){
 }
 
 int main() {
-    read("in.txt");
-    write("out.txt");
+    freopen( "in.txt", "r", stdin);
+
     cin >> n >> e;
     for (int i = 0; i<e; i++) {
         int u, v, w;
@@ -94,7 +78,9 @@ int main() {
         tmp.u = u, tmp.v = v, tmp.w = w;
         adj.push_back(tmp);
     }
+
     cin >> source;
+
     Bellman_ford();
     return 0;
 }
