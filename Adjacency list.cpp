@@ -9,7 +9,6 @@ input:
 1 2
 2 3
 4 3
-
 output:
 adjacency list of vector 0: 1 4 
 adjacency list of vector 1: 0 3 4 2 
