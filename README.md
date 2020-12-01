@@ -1,12 +1,12 @@
 ---
-* 'TreesFile'
-* 'Spanning tree'
-* 'Cayley's problem'
-* 'Dijkstra's algorithmF'
-* 'Critical pathF'
- * 'Euler paths'
-* 'Hamiltonian paths'
-* 'Traveling salesman problem '
+* TreesFile
+* Spanning tree
+* Cayley's problem
+* Dijkstra's algorithmF
+* Critical pathF
+* Euler paths
+* Hamiltonian paths
+* Traveling salesman problem
 ---
 
 ### Traverse Algorithm
