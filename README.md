@@ -4,8 +4,8 @@
 #### Cayley's problem
 #### Dijkstra's algorithmF
 #### Critical pathF
-#### Euler paths
-#### Hamiltonian paths
+ 'Euler paths'
+'Hamiltonian paths'
 #### Traveling salesman problem 
 ---
 
