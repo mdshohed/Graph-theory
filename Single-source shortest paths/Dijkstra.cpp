@@ -1,82 +1,74 @@
-/*
-problem: shortest path 
-Algorithm: Dijkstra 
-input:
-5 6
-0 1 2
-0 2 1
-0 3 3
-1 2 1
-3 4 2
-2 4 5
-0
-output:
-node: 0 Distance: 0
-node: 1 Distance: 2
-node: 2 Distance: 1
-node: 3 Distance: 3
-node: 4 Distance: 5
-*/
 
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 struct node {
-    int val, cost;
+    int v, w;
 };
-
+const int mx = 1e5+7;
 vector<node> adj[mx];
-bool visit[mx];
+int visit[mx];
+int parent[mx];
 int dis[mx];
-int source;
 
-class com{
+class cmp {
 public:
-    bool operator()(node &a, node &b){
-        return a.cost > b.cost;
+    bool operator()( node& a, node& b) {
+        return a.w>b.w;
     }
 };
 
-int dijkstra(){
-    priority_queue<node,vector<node>,com> q;
+int dijkstra(int source,int n) {
+    memset( parent,-1, sizeof(parent));
+    fill( dis,dis+mx,INT_MAX);
+
+    priority_queue<node,vector<node>,cmp> q;
     q.push( {source,0});
-    //visit[source] = true;
+    dis[source] = 0;
 
-    while( !q.empty()) {
-        node tmp = q.top();
-        q.pop();
-        int u = tmp.val;
-        int cost = tmp.cost;
+    while (!q.empty()) {
+        node tmp = q.top(); q.pop();
+        int u = tmp.v;
+        int cost = tmp.w;
 
-        if (visit[u]) continue;
-        dis[u] = cost;
+        if (n==u) return true;
+
         visit[u] = true;
-        for (int i = 0; i<adj[u].size(); i++) {
-            int v = adj[u][i].val;
-            int v_cost = adj[u][i].cost;
 
-            if ( !visit[v]) {
-                q.push( {v, cost+v_cost});
+        for (auto i: adj[u]) {
+            int v = i.v, w = i.w;
+            if ( !visit[v] && dis[u]+w<dis[v]) {
+                dis[v] = dis[u] + w;
+                parent[v] = u;
+                q.push( {v, dis[v]});
             }
         }
     }
+    return false;
 }
 
 int main() {
-    int node, edge;
-    cin >> node >> edge;
-    for (int i= 0; i<edge; i++) {
-        int u , v, w;
-        cin >> u >> v >> w;
-        adj[u].push_back( {v, w});
-    }
-    cout << "Inter source: " << endl;
-    cin >> source;
-    dijkstra();
 
-    for (int i = 0; i<node; i++) {
-        cout << "node: " << i << " Distance: " << dis[i] << endl;
+    int n, m;
+    cin >> n >> m;
+    for (int i = 0; i<m; i++) {
+        int x, y, w;
+        cin >> x >> y >> w;
+        adj[x].push_back({y,w});
+        adj[y].push_back( {x,w});
+    }
+    dijkstra(1,n);
+    stack<int> ans;
+    ans.push(n);
+    while ( parent[n]!=-1 ) {
+        n = parent[n];
+        ans.push(n);
+    }
+    while (!ans.empty()) {
+        cout << ans.top() << " ";
+        ans.pop();
     }
     cout << endl;
-    return 0;
+    
 }
+
