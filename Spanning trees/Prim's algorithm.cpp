@@ -1,6 +1,6 @@
 /*
 problem: ...
-algorithm: MST (minimum spanning tree
+algorithm: prim algorithm (minimum spanning tree)
 Input:
 9 13
 0 1 4
@@ -16,96 +16,59 @@ Input:
 3 4 9
 5 4 10
 8 6 6
-
 Output:
+41
 
 */
 #include <bits/stdc++.h>
 using namespace std;
 
-#define pb push_back
-#define ff first
-#define ss second
-#define EMPTY_VALUE -1
-#define inf  1<<28
-#define CLR(x,y) memset( x,y,sizeof(x))
-#define FOR(x,n) for(int i = x; i<n; i++)
-#define read(x) freopen(x, "r", stdin);
-#define write(x) freopen( x, "w", stdout);
-
-
-const int MOD = 1e9+7;
-const int mx = 1e4+9;
-
+const int MAX = 1e4 + 5;
 typedef long long ll;
-typedef vector<int> v;
-typedef pair<int,int> pii;
-typedef map<string,int> mp;
+typedef pair<ll, int> pi;
+bool marked[MAX];
+vector <pi> adj[MAX];
 
-int fx[] = {+0, +0, +1, -1};
-int fy[] = {+1, -1, +0, +0};
+ll prim(int x){
+    priority_queue<pi, vector<pi>, greater<pi> > Q;
 
-vector<int> adj[mx], cost[mx];
-vector<int> path;
-bool visit[mx];
-int n, e;
+    ll minimumCost = 0;
+    Q.push(make_pair(0, x));
 
-struct node {
-    int u, v, w;
-};
+    while(!Q.empty()){
+        pi p = Q.top();
+        Q.pop();
+        x = p.second;
 
-class com{
-public:
-    bool operator()(node &a, node &b){
-        if (a.w > b.w) return true;
-        else return false;
-    }
-};
+        if(marked[x]) continue;
 
-int mst(){
-    priority_queue<node,vector<node>,com> pq;
-    visit[0] = true;
-    for (int i = 0; i<adj[0].size(); i++) {
-        node x;
-        x.u  = 6; x.v = adj[0][i]; x.w = cost[0][i];
-        pq.push(x);
-    }
-    int ans = 0, cnt = 0;
-    while (!pq.empty()) {
-        node x = pq.top();
-        pq.pop();
-        int u = x.u, v = x.v, w = x.w;
-        if( visit[v]==false) {
-            visit[v] = true;
-            ans +=w;
-            cout << u << " " << v << " " << w << endl;
-            for(int i = 0; i<adj[v].size(); i++) {
-                node x;
-                x.u  = v; x.v = adj[v][i]; x.w = cost[v][i];
-                pq.push(x);
+        minimumCost += p.first;
+        marked[x] = true;
+
+        for(auto i :adj[x] ){
+            int y = i.second;
+            if(!marked[y]){
+                Q.push(i);
             }
-            cnt++;
         }
-        if (cnt==n-1) break;
     }
-    cout << endl;
-    return ans;
+    return minimumCost;
 }
 
 int main(){
+    freopen( "in.txt", "r", stdin );
 
-    read( "in.txt");
-    cin >> n >> e;
-    for (int i = 0; i<e; i++) {
-        int u, v, w;
-        cin >> u >> v >> w;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-        cost[u].push_back(w);
-        cost[v].push_back(w);
+    int nodes, edges, x, y;
+    ll weight, minimumCost;
+    cin >> nodes >> edges;
+    for(int i = 0;i < edges;++i){
+        cin >> x >> y >> weight;
+        adj[x].push_back(make_pair( weight,y));
+        adj[y].push_back(make_pair( weight, x));
     }
-    int x = mst();
-    cout << x << endl;
+    minimumCost = prim(1);
+    cout << minimumCost << endl;
     return 0;
 }
+
 
