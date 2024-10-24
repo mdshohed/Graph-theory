@@ -1,4 +1,4 @@
----
+```
 * TreesFile
 * Spanning tree
 * Cayley's problem
@@ -7,7 +7,7 @@
 * Euler paths
 * Hamiltonian paths
 * Traveling salesman problem
----
+```
 
 ### Traverse Algorithm
 * [Breadth First Search](https://github.com/mdshohed/Graph-theory/tree/master/Traverse%20Algorithm)
